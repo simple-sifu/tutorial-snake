@@ -17,7 +17,7 @@ let intervalTime = 0;
 let interval = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
-  document.addEventListener("keyup", control);
+  // document.addEventListener("keyup", control);
   createBoard();
   startGame();
   playAgain.addEventListener("click", replay);
@@ -68,15 +68,15 @@ function moveSnake(squares) {
 
 function checkForHits(squares) {
   if (
-    (currentSnake[0] + width >= width * width && direction === width) ||
-    (currentSnake[0] % width === width - 1 && direction === 1) ||
-    (currentSnake[0] % width === 0 && direction === -1) ||
-    (currentSnake[0] - width <= 0 && direction === -width) ||
+    (currentSnake[0] + width >= width * width && direction === width) || // down
+    (currentSnake[0] % width === width - 1 && direction === 1) ||     // right
+    (currentSnake[0] % width === 0 && direction === -1) ||               // left
+    (currentSnake[0] - width <= 0 && direction === -width) ||            // up
     squares[currentSnake[0] + direction].classList.contains("snake")
   ) {
     return true;
   } else {
-    return false;
+    return false; 
   }
 }
 
@@ -101,22 +101,26 @@ function randomApple(squares) {
   squares[appleIndex].classList.add("apple");
 }
 
-function control(e) {
-  if (e.keycode === 39) {
-    direction = 1; // right
-  } else if (e.keycode === 38) {
-    direction = -width; //if we press the up arrow, the snake will go ten divs up
-  } else if (e.keycode === 37) {
-    direction = -1; // left, the snake will go left one div
-  } else if (e.keycode === 40) {
-    direction = +width; // down the snake head will instantly appear 10 divs below from the current div
-  }
-}
+// function control(e) {
+//   if (e.keycode === 39) {
+//     direction = 1; // right
+//     console.log("keycode 39 right arrow");
+//   } else if (e.keycode === 38) {
+//     console.log("keycode 38 up arrow");
+//     direction = -width; //if we press the up arrow, the snake will go ten divs up
+//   } else if (e.keycode === 37) {
+//     console.log("keycode 37 left arrow");
+//     direction = -1; // left, the snake will go left one div
+//   } else if (e.keycode === 40) {
+//     console.log("keycode 40 down arrow");
+//     direction = +width; // down the snake head will instantly appear 10 divs below from the current div
+//   }
+// }
 
-up.addEventListener("click", () => (direction = -width));
-bottom.addEventListener("click", () => (direction = +width));
-left.addEventListener("click", () => (direction = -1));
-right.addEventListener("click", () => (direction = 1));
+up.addEventListener("click", () => {console.log("up"); direction = -width});
+bottom.addEventListener("click", () => {console.log("down"); direction = +width});
+left.addEventListener("click", () => {console.log("left"); direction = -1});
+right.addEventListener("click", () => {console.log("right"); direction = 1});
 
 function replay() {
   grid.innerHTML = "";
